@@ -44,7 +44,7 @@ def common_data(list1, list2):
 def initialize_graph(pref):
 
     print(pref)
-    with open('TestData.csv') as csv_file:
+    with open('IMDb_movies_version_1.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
@@ -90,7 +90,8 @@ def find_shortest_path(graph, start, end, path =[]):
 
 
 def main():
-
+    graphtype = input('Enter your desired graph type')
+    
     pref = input('Enter your base movie: ')
     #print(pref + " sucks")
     initialize_graph(pref)

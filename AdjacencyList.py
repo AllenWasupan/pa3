@@ -1,11 +1,8 @@
-# Python program for 
-# validation of a graph
-  
-# import dictionary for graph
+
 from collections import defaultdict
 import csv
 
-# function for adding edge to graph
+
 graph = defaultdict(list)
 
 allmoviesarray = [ ]
@@ -14,7 +11,6 @@ genresmovie = []
 def addEdge(graph,u,v):
     graph[u].append(v)
 
-# definition of function
 def generate_edges(graph):
     edges = []
   
@@ -28,23 +24,28 @@ def generate_edges(graph):
             edges.append((node, neighbour))
     return edges
 
+#def calculate_edges(list1,list2):
+
+  #  is_edge = False
+
+  #  if list1[]:
+ #       is_edge = True
+
+  #  return is_edge
+
 def common_data(list1, list2):
     result = False
   
-    # traverse in the 1st list
     for x in list1:  
-        # traverse in the 2nd list
         for y in list2:    
-            # if one common
             if x == y:
                 result = True
                 return result                   
     return result
 
-def initialize_graph(pref):
-
-    print(pref)
-    with open('IMDb_movies_version_1.csv') as csv_file:
+def initialize_graph():
+    
+    with open('TestData.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
@@ -59,6 +60,9 @@ def initialize_graph(pref):
                 
                 if 'Comedy' in allmoviesarray[line_count-1][2]:
                     genresmovie.append(allmoviesarray[line_count-1][0])
+                
+                #for i in genresmovie:
+                 #   if i == 'comedy':
                         
                 
 
@@ -74,6 +78,31 @@ def printRecommended():
             break
         count += 1
     
+
+def find_path(graph, start, end, path=[]):
+    path = path + [start]
+    if start == end:
+        return path
+    for node in graph[start]:
+        if node not in path:
+            newpath = find_path(graph, node, end, path)
+            if newpath:
+                return newpath
+
+# function to generate all possible paths
+def find_all_paths(graph, start, end, path =[]):
+  path = path + [start]
+  if start == end:
+    return [path]
+  paths = []
+  for node in graph[start]:
+    if node not in path:
+      newpaths = find_all_paths(graph, node, end, path)
+    for newpath in newpaths:
+      paths.append(newpath)
+  return paths
+
+
 # function to find the shortest path
 def find_shortest_path(graph, start, end, path =[]):
         path = path + [start]
@@ -90,13 +119,17 @@ def find_shortest_path(graph, start, end, path =[]):
 
 
 def main():
-    graphtype = input('Enter your desired graph type')
-    
+
     pref = input('Enter your base movie: ')
-    #print(pref + " sucks")
-    initialize_graph(pref)
+    print(pref + " sucks")
+    initialize_graph()
 
     print('Printing Recommended Movies: ')
     printRecommended()
     
+
+
+
+
+
 main()

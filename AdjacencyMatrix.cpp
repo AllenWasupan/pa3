@@ -64,13 +64,6 @@ void processGenres(Movie& obj) {
         }
     }
 }
-void printGraph(vector<int> graph[], vector<Movie> movies, Movie obj)
-{
-    cout << "\n Movies similar to "<< obj.title << "\n head ";
-        for (auto x : graph[obj.insertionPlace])
-           cout << "-> " << movies.at(x).title;
-        printf("\n");
-}
 
 int main() {
     readCSV();
